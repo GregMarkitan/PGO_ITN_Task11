@@ -7,4 +7,16 @@ public class LaptopSet extends Equipment {
 		this.ramGb = ramGb;
 		this.hasDockingStation = hasDockingStation;
 	}
+	
+	@Override 
+	public double calculateDailyPrice() {
+		double price = getBaseDailyPrice();
+		if (hasDockingStation) price += 15;
+		if (ramGb >= 32) price += 25;
+		return price;
+	}
+
+	@Override
+	public String getDetails() {
+		return "RAM GB: " + ramGb + " | " + " Dock: " + hasDocking;
 }

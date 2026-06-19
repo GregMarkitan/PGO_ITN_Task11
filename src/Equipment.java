@@ -9,6 +9,21 @@ public abstract class Equipment implements Displayable {
 		this.name = name;
 		this.baseDailyPrice = baseDailyPrice;
 	}
+	public String getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public double getBaseDailyPrice() {
+		return baseDailyPrice;
+	}
+
+	public boolean isAvailable() {
+		return available;
+	}
 
 	public abstract double calculateDailyPrice();
 	public abstract String getDetails();

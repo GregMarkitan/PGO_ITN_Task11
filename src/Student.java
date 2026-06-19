@@ -10,4 +10,20 @@ public class Student {
 		this.groupName = groupName;
 		this.loyaltyPoints = loyaltyPoints;
 	}
+
+	public String getId() {
+		return id; 
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public String getGroupName() {
+		return groupName;
+	}
+
+	public int getLoyaltyPoints() {
+		return loyaltyPoints;
+	}
 }

@@ -33,8 +33,22 @@ public class Reservation implements Displayable {
 		return status;
 	}
 
-	public double calculateTotalCost(DiscountPolicy discountPolicy) {
-        double priceBeforeDiscount = equipment.calculateDailyPrice() * days;
-        return discountPolicy.applyDiscount(student, priceBeforeDiscount);
+	public void setStatus(ReservationStatus status) {
+		this.status = status;
 	}
+
+	public double calculateTotalCost(DiscountPolicy discountPolicy) {
+		double base = equipment.calculateDailyPrice() * days;
+		return discountPolicy.applyDiscount(student, base);
+	}
+	
+	@Override
+	public String getDisplayText() {
+		return id + " | " + 
+		student.getFullName() + " | " +
+		equipment.getName() + " | " +
+		" days: " + " | " + days + " | "
+		" status: " + " | " + status;
+	}
+
 }

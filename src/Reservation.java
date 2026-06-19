@@ -12,7 +12,26 @@ public class Reservation implements Displayable {
 		this.days = days;
 		this.status = ReservationStatus.ACTIVE;
 	}
-    
+
+	public String getId() {
+		return id;
+	}
+	
+	public Student getStudent() {
+		return student;
+	}
+	
+	public Equipment getEquipment() {
+		return equipment; 
+	}
+	
+	public int getDays() {
+		return days;
+	}
+
+	public ReservationStatus getStatus() {
+		return status;
+	}
 
 	public double calculateTotalCost(DiscountPolicy discountPolicy) {
         double priceBeforeDiscount = equipment.calculateDailyPrice() * days;

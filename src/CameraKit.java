@@ -7,3 +7,17 @@ public class CameraKit extends Equipment {
 		this.lensCount = lensCount;
 		this.hasTripod = hasTripod;
 	}
+
+	@Override
+	public double calculateDailyPrice() {
+		double price = getBaseDailyPrice();
+		price += lensCount * 10;
+		if (hasTripod) price +=15;
+		return price;
+	}
+
+	@Override 
+	public String getDetails() {
+		return "Number of lenses: " + lensCount + " | " + " Tripod: " + hasTripod;
+	}
+}

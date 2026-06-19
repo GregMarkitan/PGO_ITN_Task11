@@ -25,6 +25,19 @@ public abstract class Equipment implements Displayable {
 		return available;
 	}
 
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
+	
+	public String getType() 
+		return this.getClass().getSimpleName();
+	}
+
 	public abstract double calculateDailyPrice();
 	public abstract String getDetails();
+
+	@Override
+	public String getDisplayText() {
+		return id + " | " + name;
+	}
 }

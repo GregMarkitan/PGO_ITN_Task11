@@ -26,4 +26,16 @@ public class Student {
 	public int getLoyaltyPoints() {
 		return loyaltyPoints;
 	}
+	
+	public void addPoints(int points) {
+		this.loyaltyPoints+= points;
+	}
+
+	@Override
+	public String toString() {
+		return " ID: " + id + " | " +
+		" Student Name: " + fullName + " | " +
+		" Group: " + groupName + " | " + 
+		" Loyalty Points: " + loyaltyPoints;
+	}
 }

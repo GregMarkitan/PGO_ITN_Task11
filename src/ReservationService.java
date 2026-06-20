@@ -10,6 +10,18 @@ public class ReservationService {
 		initData();
 	}
 	
+	public List<Student> getStudents() {
+		return students;
+	}
+
+	public List<Equipment> getEquipment() {
+		return equipmentList;
+	}
+
+	public List<Reservation> getReservations() {
+		return reservations;
+	}
+	
 	public Reservation createReservation(String studentId, String equipmentId, int days) {
         // validate data, find the student, find the equipment, create the reservation
         throw new UnsupportedOperationException("to be implemented");

@@ -36,7 +36,8 @@ public class ReservationService {
 	
 	public Reservation createReservation(String studentId, String equipmentId, int days) {
         // validate data, find the student, find the equipment, create the reservation
-        	if (days < 1 || days > 14) {
+        	
+		if (days < 1 || days > 14) {
 			System.out.println("Error, invalid number of days");
 			return null;
 		}
@@ -87,5 +88,27 @@ public class ReservationService {
 
 	public void returnEquipment(String reservationId) {
         // change reservation status, unlock equipment, add loyalty points
+
+		Reservation r = findReservation(reservationId);
+		if (r == null) {
+			System.out.println("Error, there is no such reservation in the system");
+			return;
+		}
+
+		if (r.getStatus() != ReservationStatus.ACTIVE) {
+			System.out.println("Error, this is not an active reservation");
+			return;
+		}
+		
+		r.setStatus(ReservationStatus.RETURNED);
+		Equipment eq = r.getEquipment();
+		eq.setAvailable(true);
+	
+		double cost = r.calculateTotalCost(discountPolicy);
+		int points = (int) (cost/10);
+		r.getStudent().addPoints(points)
+
+		System.out.println("Equipment returned.");
+		System.out.println("Student got " + points + " loyalty points.");
 	}
 }

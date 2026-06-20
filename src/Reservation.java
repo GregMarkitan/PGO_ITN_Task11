@@ -44,11 +44,11 @@ public class Reservation implements Displayable {
 	
 	@Override
 	public String getDisplayText() {
-		return id + " | " + 
+		return id + " | " +
 		student.getFullName() + " | " +
 		equipment.getName() + " | " +
-		" days: " + " | " + days + " | "
-		" status: " + " | " + status;
+		"days: " + days + " | " +
+		"status: " + status;
 	}
 
 }

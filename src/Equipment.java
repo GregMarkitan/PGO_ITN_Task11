@@ -29,7 +29,7 @@ public abstract class Equipment implements Displayable {
 		this.available = available;
 	}
 	
-	public String getType() 
+	public String getType() {
 		return this.getClass().getSimpleName();
 	}
 

@@ -1,7 +1,10 @@
+import java.util.List;
+import java.util.ArrayList;
+
 public class ReservationService {
 	private List<Student> students = new ArrayList<>();
 	private List<Equipment> equipmentList = new ArrayList<>();
-	private List<Reservatin> reservations = new ArrayList<>();
+	private List<Reservation> reservations = new ArrayList<>();
 
 	private final DiscountPolicy discountPolicy;
 	private int reservationCounter = 1;
@@ -12,9 +15,9 @@ public class ReservationService {
 	}
 
 	private void initData() { 
-		students.add(new Student("S001", "Anna Kowalska", "12c", "120"));
-		students.add(new Student("S002", "Marek Nowak", "12c", "40"));
-		students.add(new Student("S003", "Julia Zielinska", "13a", "0"));
+		students.add(new Student("S001", "Anna Kowalska", "12c", 120));
+		students.add(new Student("S002", "Marek Nowak", "12c", 40));
+		students.add(new Student("S003", "Julia Zielinska", "13a", 0));
 
 		equipmentList.add(new LaptopSet("E001", "Lenovo ThinkPad Lab", 80, 32, true));
 		equipmentList.add(new LaptopSet("E002", "Dell XPS Demo", 100, 16, false));
@@ -26,7 +29,7 @@ public class ReservationService {
 		return students;
 	}
 
-	public List<Equipment> getEquipment() {
+	public List<Equipment> getEquipmentList() {
 		return equipmentList;
 	}
 
@@ -46,17 +49,17 @@ public class ReservationService {
 		Equipment eq = findEquipment(equipmentId);
 		
 		if (student == null) {
-			System.out.println("Error, student not found.")
+			System.out.println("Error, student not found.");
 			return null;
 		}
 
 		if (eq == null) {
-			System.out.println("Error, equipment not found.")
+			System.out.println("Error, equipment not found.");
 			return null;
 		}
 	
-		if (!eq.isAvaialable()){
-			System.out.println("Eroor, equipment not available.")
+		if (!eq.isAvailable()){
+			System.out.println("Eroor, equipment not available.");
 			return null;
 		}
 		
@@ -75,15 +78,15 @@ public class ReservationService {
 	}
 
 	private Student findStudent(String id) {
-		return students.stream()filter(s -> s.getId().equals(id)).findFirst().orElse(null);
+		return students.stream().filter(s -> s.getId().equals(id)).findFirst().orElse(null);
 	}
 
 	private Equipment findEquipment(String id) {
-		return equipmentList.stream()filter(e -> e.getId().equals(id)).findFirst().orElse(null);
+		return equipmentList.stream().filter(e -> e.getId().equals(id)).findFirst().orElse(null);
 	}
 
 	private Reservation findReservation(String id) {
-		return reservations.stream()filter(r -> r.getId().equals(id)).findFirst().orElse(null);
+		return reservations.stream().filter(r -> r.getId().equals(id)).findFirst().orElse(null);
 	}
 
 	public void returnEquipment(String reservationId) {
@@ -106,7 +109,7 @@ public class ReservationService {
 	
 		double cost = r.calculateTotalCost(discountPolicy);
 		int points = (int) (cost/10);
-		r.getStudent().addPoints(points)
+		r.getStudent().addPoints(points);
 
 		System.out.println("Equipment returned.");
 		System.out.println("Student got " + points + " loyalty points.");

@@ -4,6 +4,7 @@ public class ReservationService {
 	private List<Reservatin> reservations = new ArrayList<>();
 
 	private final DiscountPolicy discountPolicy;
+	private int reservationCounter = 1;
 
 	public ReservationService(DiscountPolicy discountPolicy) {
 		this.discountPolicy = discountPolicy;
@@ -57,6 +58,31 @@ public class ReservationService {
 			System.out.println("Eroor, equipment not available.")
 			return null;
 		}
+		
+		String id = "R" + String.format("%03d", reservationCounter++);
+		Reservation r = new Reservation(id, student, eq, days);
+
+		eq.setAvailable(false);
+		reservations.add(r);
+		double cost = r.calculateTotalCost(discountPolicy);
+
+		System.out.println("Reservation created: " + id);
+		System.out.println("Cost: " + cost);
+
+		return r;
+	
+	}
+
+	private Student findStudent(String id) {
+		return students.stream()filter(s -> s.getId().equals(id)).findFirst().orElse(null);
+	}
+
+	private Equipment findEquipment(String id) {
+		return equipmentList.stream()filter(e -> e.getId().equals(id)).findFirst().orElse(null);
+	}
+
+	private Reservation findReservation(String id) {
+		return reservations.stream()filter(r -> r.getId().equals(id)).findFirst().orElse(null);
 	}
 
 	public void returnEquipment(String reservationId) {

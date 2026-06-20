@@ -111,4 +111,35 @@ public class ReservationService {
 		System.out.println("Equipment returned.");
 		System.out.println("Student got " + points + " loyalty points.");
 	}
+	public void printReport() {
+
+		double revenue = 0;
+		Student top = null;
+
+		System.out.println("\n=== ACTIVE RESERVATIONS ===");
+		for (Reservation r : reservations) {
+			if (r.getStatus() == ReservationStatus.ACTIVE) {
+                		System.out.println(r.getDisplayText());
+            		}
+        	}
+
+		System.out.println("\n=== COMPLETED RESERVATIONS ===");
+		for (Reservation r : reservations) {
+			if (r.getStatus() == ReservationStatus.RETURNED) {
+				System.out.println(r.getDisplayText());
+				revenue += r.calculateTotalCost(discountPolicy);
+			}
+        	}
+
+		for (Student s : students) {
+			if (top == null || s.getLoyaltyPoints() > top.getLoyaltyPoints()) {
+			top = s;
+			}
+		}
+
+		System.out.println("\nTotal revenue: " + revenue);
+		System.out.println("Top student: " + (top != null ? top.getFullName() : "none"));
+	}
+
+
 }

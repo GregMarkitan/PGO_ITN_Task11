@@ -3,6 +3,8 @@
 
 This project is a console-based Java application created for managing equipment reservations in a university.
 
+---
+
 ## Features
 
 The application provides the following functionalities from its "UI Menu":
@@ -17,6 +19,8 @@ The application provides the following functionalities from its "UI Menu":
    - Total revenue
    - Student with the highest number of loyalty points
 7. Exiting the program.
+
+---
 
 ## Classes
 
@@ -63,8 +67,8 @@ Main methods:
 Represents a laptop type equipment set.
 
 Additional fields:
-- RAM size
-- Docking station availability
+- ramGb
+- hasDockingStation
 
 Main methods:
 - calculateDailyPrice()
@@ -72,26 +76,34 @@ Main methods:
 
 ### CameraKit
 
-Represents a camera equipment set.
+Represents a camera type equipment set.
 
 Additional fields:
-- Number of lenses
-- Tripod availability
+- lensCount
+- hasTripod
 
-Overrides the daily price calculation according to the business rules.
+Main methods:
+- calculateDailyPrice()
+- getDetails()
 
 ### Reservation
 
-Represents a reservation made by a student.
+Represents a reservation for a specific equipment made by a specific student.
 
-Stores:
-- Reservation ID
-- Student object
-- Equipment object
-- Number of rental days
-- Reservation status
+Main fields:
+- id
+- student
+- equipment
+- days
+- status
 
-Calculates the total reservation cost using a discount policy.
+Main methods:
+- calculateTotalCost(DiscountPolicy policy)
+- getDisplayText()
+- getStatus()
+- setStatus(ReservationStatus status)
+- getStudent()
+- getEquipment()
 
 ### ReservationService
 
@@ -100,15 +112,27 @@ Contains the business logic of the application.
 Responsibilities:
 - Creating reservations
 - Returning equipment
-- Finding students and equipment
+- Finding a student, equipment or reservation.
 - Managing reservation status
 - Generating reports
 
+Main methods:
+- createReservation(String studentId, String equipmentId, int days)
+- returnEquipment(String reservationId)
+- printReport()
+- findStudent(String id)
+- findEquipment(String id)
+- findReservation(String id)
+- getStudents()
+- getEquipmentList()
+- getReservations()
+
 ### LoyaltyDiscountPolicy
 
-Implements the discount calculation rules.
+Implements the discount policy for reservations, uses loyalty points.
 
-Students with at least 100 loyalty points receive a 10% discount.
+Main methods:
+- applyDiscount(Student student, double price)
 
 ### ReservationStatus (Enum)
 
@@ -118,5 +142,42 @@ Possible values:
 - ACTIVE
 - RETURNED
 - CANCELLED
+
+---
+
+## Interfaces
+
+### Displayable
+
+Provides a common way of displaying objects in a readable format.
+
+Main method:
+String getDisplayText();
+
+Implemented by:
+- Equipment
+- Reservation
+
+### DiscountPolicy
+
+Provides logic for applying reservation discounts.
+
+Main method:
+- double applyDiscount(Student student, double price);
+
+Implemented by:
+- LoyaltyDiscountPolicy
+
+---
+
+## Polymorphism Situation Example
+
+- Polymorphism is best seen and understood through the "calculateDailyPrice()" method in this task.
+- All equipment objects are stored in a single collection "List<Equipment> equipmentList;" by the application.
+- Both "LaptopSet" and "CameraKit" (equipment objects) inherit from "Equipment", and both override "calculateDailyPrice" since the pricing depends on different factors in the logic provided.
+- Therefore, when the program executes "equipmnt.calculateDailyPrice();" jaca can automatically call the correct implementation based on the object type.
+- "LaptopSet" daily price will be calculated using ramGb and hasDockingStation fields.
+- "CameraKit" daily price will be calculated using lensCount and hasTripod fields.
+- This allows the handling of all equipment objects uniformly throught the "Equipment" supercall while still executing specific sub class code.
 
 ---

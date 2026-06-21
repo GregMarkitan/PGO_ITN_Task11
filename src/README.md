@@ -174,7 +174,7 @@ Implemented by:
 
 - Polymorphism is best seen and understood through the "calculateDailyPrice()" method in this task.
 - All equipment objects are stored in a single collection "List<Equipment> equipmentList;" by the application.
-- Both "LaptopSet" and "CameraKit" (equipment objects) inherit from "Equipment", and both override "calculateDailyPrice" since the pricing depends on different factors in the logic provided.
+- Both "LaptopSet" and "CameraKit" (equipment objects) inherit from "Equipment", and both override "calculateDailyPrice" since the pricing depends on different factors for different equipment types in the logic provided.
 - Therefore, when the program executes "equipmnt.calculateDailyPrice();" jaca can automatically call the correct implementation based on the object type.
 - "LaptopSet" daily price will be calculated using ramGb and hasDockingStation fields.
 - "CameraKit" daily price will be calculated using lensCount and hasTripod fields.
